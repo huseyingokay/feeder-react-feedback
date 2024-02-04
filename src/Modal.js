@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import TextareaAutosize from "react-textarea-autosize";
-import Radium, { StyleRoot, Style } from "radium";
 import "./Modal-Styles";
-
-let Textarea = Radium(TextareaAutosize);
 
 class Modal extends Component {
   state = {
@@ -116,110 +112,26 @@ class Modal extends Component {
     let { props } = this;
 
     return (
-      <StyleRoot>
-        <form
-          className="frf-modal-container"
-          style={{ zIndex: parseInt(props.zIndex) }}
-          onSubmit={this.handleSubmit}
-        >
-          <div className="frf-modal-content-container">
-            {props.email && (
-              <div className="frf-modal-input-group">
-                <div className="frf-modal-label" htmlFor="feedbackEmail">
-                  Email{props.emailRequired ? " *" : null}
-                </div>
-                <input
-                  className="frf-modal-input"
-                  onChange={this.handleChange}
-                  value={this.state.feedbackEmail}
-                  required={props.emailRequired}
-                  id="feedbackEmail"
-                  name="feedbackEmail"
-                  type="email"
-                  key="1"
-                  style={{
-                    ":hover": {
-                      border: `1px solid ${props.hoverBorderColor}`,
-                      boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                    },
-                    ":focus": {
-                      border: `1px solid ${props.hoverBorderColor}`,
-                      boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                    },
-                    ":active": {
-                      border: `1px solid ${props.hoverBorderColor}`,
-                      boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                    },
-                  }}
-                  placeholder={"Enter your email"}
-                />
-              </div>
-            )}
-
+      <form
+        className="frf-modal-container"
+        style={{ zIndex: parseInt(props.zIndex) }}
+        onSubmit={this.handleSubmit}
+      >
+        <div className="frf-modal-content-container">
+          {props.email && (
             <div className="frf-modal-input-group">
-              <div className="frf-modal-label">Feedback Type *</div>
-              <div className="frf-modal-feedback-types">
-                {this.state.feedbackTypes.map((f, i) => (
-                  <span
-                    className={
-                      feedbackType === feedbackTypes[i]
-                        ? "frf-modal-feedback-type frf-modal-feedback-selected"
-                        : "frf-modal-feedback-type"
-                    }
-                    key={i + 2}
-                    style={
-                      feedbackType === feedbackTypes[i]
-                        ? {
-                            background: props.primaryColor,
-                            color: props.textColor,
-                            border: `1px solid ${props.hoverBorderColor}`,
-                            boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                            ":hover": {
-                              border: `1px solid ${props.hoverBorderColor}`,
-                              boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                            },
-                          }
-                        : {
-                            color: "#000",
-                            ":hover": {
-                              border: `1px solid ${props.hoverBorderColor}`,
-                              boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                            },
-                          }
-                    }
-                    onClick={() =>
-                      this.setState({ feedbackType: feedbackTypes[i] })
-                    }
-                  >
-                    {this.capitalize(feedbackTypes[i])}
-                  </span>
-                ))}
+              <div className="frf-modal-label" htmlFor="feedbackEmail">
+                Email{props.emailRequired ? " *" : null}
               </div>
-            </div>
-
-            <div className="frf-modal-input-group">
-              <div className="frf-modal-label" htmlFor="feedbackMsg">
-                Feedback Message *
-              </div>
-              <Style
-                key="5"
-                scopeSelector="textarea"
-                rules={{
-                  ":hover": {
-                    border: `1px solid ${props.hoverBorderColor}`,
-                    boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
-                  },
-                }}
-              />
-              <Textarea
-                key="6"
+              <input
                 className="frf-modal-input"
                 onChange={this.handleChange}
-                value={this.state.feedbackMsg}
-                required
-                id="feedbackMsg"
-                name="feedbackMsg"
-                type="text"
+                value={this.state.feedbackEmail}
+                required={props.emailRequired}
+                id="feedbackEmail"
+                name="feedbackEmail"
+                type="email"
+                key="1"
                 style={{
                   ":hover": {
                     border: `1px solid ${props.hoverBorderColor}`,
@@ -229,59 +141,110 @@ class Modal extends Component {
                     border: `1px solid ${props.hoverBorderColor}`,
                     boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
                   },
+                  ":active": {
+                    border: `1px solid ${props.hoverBorderColor}`,
+                    boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
+                  },
                 }}
-                placeholder={`Enter your feedback${
-                  props.subProject
-                    ? ` for ${props.subProject}`
-                    : props.projectName
-                    ? ` for ${props.projectName}`
-                    : ""
-                }`}
+                placeholder={"Enter your email"}
               />
             </div>
-            <button
-              className="frf-modal-button"
-              disabled={submitted}
-              key="7"
+          )}
+
+          <div className="frf-modal-input-group">
+            <div className="frf-modal-label">Feedback Type *</div>
+            <div className="frf-modal-feedback-types">
+              {this.state.feedbackTypes.map((f, i) => (
+                <span
+                  className={
+                    feedbackType === feedbackTypes[i]
+                      ? "frf-modal-feedback-type frf-modal-feedback-selected"
+                      : "frf-modal-feedback-type"
+                  }
+                  key={i + 2}
+                  onClick={() =>
+                    this.setState({ feedbackType: feedbackTypes[i] })
+                  }
+                >
+                  {this.capitalize(feedbackTypes[i])}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="frf-modal-input-group">
+            <div className="frf-modal-label" htmlFor="feedbackMsg">
+              Feedback Message *
+            </div>
+            <Textarea
+              className="frf-modal-input"
+              onChange={this.handleChange}
+              value={this.state.feedbackMsg}
+              required
+              id="feedbackMsg"
+              name="feedbackMsg"
+              type="text"
               style={{
-                background: props.primaryColor,
-                color: props.textColor,
                 ":hover": {
                   border: `1px solid ${props.hoverBorderColor}`,
                   boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
                 },
+                ":focus": {
+                  border: `1px solid ${props.hoverBorderColor}`,
+                  boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
+                },
               }}
-              type="submit"
-            >
-              {loading ? (
-                <div
-                  key="8"
-                  style={{
-                    borderTop: `2.133px solid ${props.textColor}`,
-                  }}
-                  className="frf-modal-button-loader"
-                ></div>
-              ) : submitted ? (
-                <span>{props.postSubmitButtonMsg}</span>
-              ) : (
-                <span>{props.submitButtonMsg}</span>
-              )}
-            </button>
-            <div className="frf-water">
-              Feedback Powered by{" "}
-              <a
-                href="http://feeder.sh/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Feeder.sh
-              </a>
-            </div>
+              placeholder={`Enter your feedback${
+                props.subProject
+                  ? ` for ${props.subProject}`
+                  : props.projectName
+                  ? ` for ${props.projectName}`
+                  : ""
+              }`}
+            />
           </div>
-        </form>
-      </StyleRoot>
+          <button
+            className="frf-modal-button"
+            disabled={submitted}
+            key="7"
+            style={{
+              background: props.primaryColor,
+              color: props.textColor,
+              ":hover": {
+                border: `1px solid ${props.hoverBorderColor}`,
+                boxShadow: `${props.hoverBorderColor} 0px 0px 0px 1px`,
+              },
+            }}
+            type="submit"
+          >
+            {loading ? (
+              <div
+                key="8"
+                style={{
+                  borderTop: `2.133px solid ${props.textColor}`,
+                }}
+                className="frf-modal-button-loader"
+              ></div>
+            ) : submitted ? (
+              <span>{props.postSubmitButtonMsg}</span>
+            ) : (
+              <span>{props.submitButtonMsg}</span>
+            )}
+          </button>
+          <div className="frf-water">
+            Feedback Powered by{" "}
+            <a
+              href="http://feeder.sh/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Feeder.sh
+            </a>
+          </div>
+        </div>
+      </form>
     );
   }
 }
 
-export default Radium(Modal);
+export default Modal;
